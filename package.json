@@ -1,0 +1,15 @@
+
+{
+  "name": "ellipse-component",
+  "version": "0.1.0",
+  "description": "Generates an array of coordinate points within an ellipse",
+  "author": "Damian Suarez <rdsuarez@gmail.com>",
+  "twitter": "@retrofox",
+  "keywords": ["ellipse", "math", "component"],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "main": "index"
+}
