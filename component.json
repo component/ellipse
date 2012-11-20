@@ -2,8 +2,10 @@
   "name": "ellipse",
   "repo": "retrofox/ellipse",
   "description": "Generates an array of coordinate points within an ellipse",
-  "version": "0.0.1",
-  "keywords": [],
+  "version": "0.1.0",
+  "author": "Damian Suarez <rdsuarez@gmail.com>",
+  "twitter": "@retrofox",
+  "keywords": ["ellipse", "component", "math"],
   "dependencies": {},
   "development": {},
   "scripts": [
