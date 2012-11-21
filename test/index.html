@@ -4,7 +4,6 @@
   <head>
     <title>Ellipse component</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="http://code.jquery.com/jquery.min.js" />
     <link rel="stylesheet" href="../build/build.css" />
     <style>
       #ellipse {
@@ -36,10 +35,11 @@
   </head>
   <body>
     <h2>Ellipse</h2>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="../build/build.js"></script>
     <div id="ellipse"></div>
     <script>
-      (function($){
+      $(document).ready(function(){
         var ellipse = require('ellipse/index.js');
         var el = $('#ellipse');
         var w = el.width();
@@ -58,7 +58,7 @@
             .text(i)
             .appendTo(el);
         }
-      })(jQuery);
+      });
     </script>
   </body>
 </html> 

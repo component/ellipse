@@ -1,33 +1,46 @@
-
 /**
- * Generates an array of coordinate points within an ellipse
- *
- * @param {Number} num
- * @return {String}
- * @api public
+ * Math constants
  */
 
 var pi = Math.PI;
 var zero = 0;
-var recto = pi/2;
-var giro = 2 * pi;
-
+var rotation = 2 * pi;
 var sexaToRad = 2 * pi / 360;
 
-module.exports = function (width, height, n, el, opts){
+/**
+ * generates an array of coordinates points through of the area and points
+ * number
+ *
+ * @param {Number} width
+ * @param {Number} height
+ * @param {Number} n points number
+ * @param {Objec} opts options(optional)
+ * @api public
+ */
 
+module.exports = function (width, height, n, opts){
   // options
   var opts = opts || {};
   opts = {
     ini: opts.ini ? opts.ini * sexaToRad : zero,
-    end: opts.end ? opts.end * sexaToRad : giro,
+    end: opts.end ? opts.end * sexaToRad : rotation,
     times: opts.times || 1000,
+    arrangement: opts.arrangment || 'normal',
+    w: opts.w || 0,
+    h: opts.h || 0,
+    round: opts.round || false
   };
 
   opts.dir = opts.ini > opts.end ? -1 : 1;
 
-  var w = (width - el / 2) / 2;
-  var h = (height - el / 2) / 2;
+  var w = width / 2;
+  var h = height / 2;
+
+  if ('inside' == opts.arrangement) {
+    w -= opts.w / 2;
+    h -= opts.h / 2;
+  }
+
   var points = initialize(w, h, n, opts);
 
   for (var i = 0; i < opts.times; i++) {
@@ -35,10 +48,14 @@ module.exports = function (width, height, n, el, opts){
     update_carts(points, w, h, opts.dir);
   }
 
-  // x/y offset
+  // x/y offset. round.
   for (var i = 0; i < points.length; i++) {
-    points[i].x += w;
-    points[i].y += h;
+    points[i].x += w - ('symmetric' == opts.arrangement ? opts.w / 2 : 0);
+    points[i].y += h - ('symmetric' == opts.arrangement ? opts.h / 2 : 0);
+    if (opts.round) {
+      points[i].x = Math[opts.round](points[i].x);
+      points[i].y = Math[opts.round](points[i].y);
+    }
   }
 
   return points;
@@ -54,6 +71,10 @@ function dist(p1, p2){
 
 /**
  * Nudges points to achieve equidistantance
+ *
+ * @param {Array} points
+ * @param {Number} dir direction
+ * @api private
  */
 
 function adjust_angles(points, dir){
@@ -78,6 +99,7 @@ function adjust_angles(points, dir){
  * @param {Array} points
  * @param {Number} w width
  * @param {Number} h height
+ * @param {Number} dir direction
  * @api private
  */
 
@@ -91,10 +113,11 @@ function update_carts(points, w, h, dir){
 /**
  * Initialize initial group of points
  *
- * @param {Number} w
- * @param {Number} h
- * @param {Number} n count of elements
+ * @param {Number} w width
+ * @param {Number} h height
+ * @param {Number} n count
  * @return {Array}
+ * @param {Object} opts
  * @api private
  */
 
