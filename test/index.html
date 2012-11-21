@@ -1,0 +1,64 @@
+
+<!DOCTYPE 5>
+<html>
+  <head>
+    <title>Ellipse component</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="http://code.jquery.com/jquery.min.js" />
+    <link rel="stylesheet" href="../build/build.css" />
+    <style>
+      #ellipse {
+        top: 50px;
+        left: 50px;
+        width: 600px;
+        height: 220px;
+        background-color: rgba(200, 255, 200, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .satellite {
+        width: 17;
+        height: 17px;
+        line-height: 19px;
+        text-align: center;
+        border-radius: 10px;
+        font-size: 9px;
+        font-weight: normal;
+        font-family: sans-serif;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        border: 1px solid #666;
+        position: absolute;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h2>Ellipse</h2>
+    <script src="../build/build.js"></script>
+    <div id="ellipse"></div>
+    <script>
+      (function($){
+        var ellipse = require('ellipse/index.js');
+        var el = $('#ellipse');
+        var w = el.width();
+        var h = el.height();
+
+        var points = ellipse(w, h, 21, 0, {
+          ini: 270,
+          end: 45
+        });
+
+
+        for (var i = 0; i < points.length; i++) {
+          var sat = $('<div class="satellite">')
+            .css('left', points[i].x)
+            .css('top', points[i].y)
+            .text(i)
+            .appendTo(el);
+        }
+      })(jQuery);
+    </script>
+  </body>
+</html> 
