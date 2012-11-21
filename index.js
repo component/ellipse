@@ -1,3 +1,4 @@
+
 /**
  * Math constants
  */
@@ -8,13 +9,14 @@ var rotation = 2 * pi;
 var sexaToRad = 2 * pi / 360;
 
 /**
- * generates an array of coordinates points through of the area and points
- * number
+ * Generates an array of the coordinate points into
+ * the given area within an elliptic curve
  *
  * @param {Number} width
  * @param {Number} height
  * @param {Number} n points number
  * @param {Objec} opts options(optional)
+ * @return {Array} coordinate points
  * @api public
  */
 
@@ -24,7 +26,7 @@ module.exports = function (width, height, n, opts){
   opts = {
     ini: opts.ini ? opts.ini * sexaToRad : zero,
     end: opts.end ? opts.end * sexaToRad : rotation,
-    times: opts.times || 1000,
+    times: opts.times || 100,
     arrangement: opts.arrangment || 'normal',
     w: opts.w || 0,
     h: opts.h || 0,

@@ -1,7 +1,7 @@
 {
   "name": "ellipse",
-  "repo": "retrofox/ellipse",
-  "description": "Generates an array of coordinate points within an ellipse",
+  "repo": "component/ellipse",
+  "description": "Generates an array of the coordinate points into the given area within an elliptic curve",
   "version": "0.1.0",
   "author": "Damian Suarez <rdsuarez@gmail.com>",
   "twitter": "@retrofox",
