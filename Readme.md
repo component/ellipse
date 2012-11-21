@@ -1,10 +1,7 @@
 
 # ellipse
 
-  Generates an array of the coordinate points into the given area within an elliptic curve
-
-![ellipse
-component](http://f.cl.ly/items/1g2930433P2Z2R0C1a14/Screen%20Shot%202012-11-21%20at%209.43.43%20AM.png)
+  Generates an array of the coordinate points into the given area along ellipse
 
 ## Installation
 
@@ -31,6 +28,10 @@ $ component install component/ellipse
 var ellipse = require('ellipse');
 var points = ellipse(400, 220, 19); // return the array of points
 ```
+
+## Credits
+
+  - mathematical computation by Carly Stambaugh @stambeezi
 
 ## License
 

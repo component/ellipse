@@ -1,8 +1,8 @@
 
 {
   "name": "ellipse-component",
-  "version": "0.1.0",
-  "description": "Generates an array of coordinate points within an ellipse",
+  "version": "0.1.1",
+  "description": "Generates an array of the coordinate points into the given area along ellipse",
   "author": "Damian Suarez <rdsuarez@gmail.com>",
   "twitter": "@retrofox",
   "keywords": ["ellipse", "math", "component"],
