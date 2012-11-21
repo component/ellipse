@@ -7,23 +7,41 @@
  * @api public
  */
 
-module.exports = function (width, height, n, el){
-  var a = (width - el / 2) / 2;
-  var b = height - (el / 2);
-  var points = initialize(a, b, n);
+var pi = Math.PI;
+var zero = 0;
+var recto = pi/2;
+var giro = 2 * pi;
 
-  for (var i = 0; i < 1000; i++) {
-    adjust_angles(points);
-    update_carts(points, a, b);
+var sexaToRad = 2 * pi / 360;
+
+module.exports = function (width, height, n, el, opts){
+
+  // options
+  var opts = opts || {};
+  opts = {
+    ini: opts.ini ? opts.ini * sexaToRad : zero,
+    end: opts.end ? opts.end * sexaToRad : giro,
+    times: opts.times || 1000,
+  };
+
+  opts.dir = opts.ini > opts.end ? -1 : 1;
+
+  var w = (width - el / 2) / 2;
+  var h = (height - el / 2) / 2;
+  var points = initialize(w, h, n, opts);
+
+  for (var i = 0; i < opts.times; i++) {
+    adjust_angles(points, opts.dir);
+    update_carts(points, w, h, opts.dir);
   }
 
-  // build array of all coordinates points [[x0, y0], [x1, y1], ... [xn, yn]]
-  for (var i = 0, m = []; i < points.length; i++) {
-    var pt = points[i];
-    m.push([100 * pt.x, 100 * (pt.y - (el / 4))]);
+  // x/y offset
+  for (var i = 0; i < points.length; i++) {
+    points[i].x += w;
+    points[i].y += h;
   }
 
-  return update_top_lefts(m, 4);
+  return points;
 };
 
 /**
@@ -38,14 +56,14 @@ function dist(p1, p2){
  * Nudges points to achieve equidistantance
  */
 
-function adjust_angles(points){
-  var max_delta = Math.PI / (24 * points.length);
+function adjust_angles(points, dir){
+  var max_delta = pi / (24 * points.length);
   var scale = 0.1;
 
   for (var i = 1; i < points.length - 1; i++) {
     var point = points[i];
-    var right = points[i + 1];
-    var left = points[i - 1];
+    var right = points[i + 1 * dir];
+    var left = points[i - 1 * dir];
     var rdist = dist(right, point);
     var ldist = dist(left, point);
     var nudge = scale * (rdist - ldist);
@@ -56,50 +74,38 @@ function adjust_angles(points){
 
 /**
  * Converts to cartesian coordinates
+ *
+ * @param {Array} points
+ * @param {Number} w width
+ * @param {Number} h height
+ * @api private
  */
 
-function update_carts(points, a, b){
+function update_carts(points, w, h, dir){
   points.map(function(pt){
-    pt.x = a * Math.cos(pt.theta);
-    pt.y = b * Math.sin(pt.theta);
+    pt.x = w * Math.cos(pt.theta);
+    pt.y = h * (Math.sin(pt.theta) * (-1));
   });
-}
-
-/**
- * Update left/top system
- */
-
-function update_top_lefts(points, width){
-  var new_points = [];
-  for (var i = 0; i < points.length; i++) {
-    var p = points[i];
-    var new_x = Number(p[0]) + (50 * width);
-    var new_y = Number(p[1]) * (-1);
-    new_points.push([new_x, new_y]);
-  }
-
-  return new_points;
 }
 
 /**
  * Initialize initial group of points
  *
- * @param {Number} a
- * @param {Number} b
+ * @param {Number} w
+ * @param {Number} h
  * @param {Number} n count of elements
  * @return {Array}
  * @api private
  */
 
-function initialize(a, b, n){
+function initialize(w, h, n, opts){
   var points = [];
-  var delta = Math.PI / (n - 1);
+  var delta = (opts.end - opts.ini) / (n - 1);
 
   for (var i = 0; i < n; i++) {
-    var point = { 'theta': Math.PI + (i * delta) };
-    points.push(point);
+    points.push({ 'theta': i * delta + opts.ini });
   }
 
-  update_carts(points, a, b);
+  update_carts(points, w, h, opts.dir);
   return points;
 }
