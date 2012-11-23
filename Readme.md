@@ -4,7 +4,7 @@
   Generates an array of the coordinate points into the given area along ellipse
 
   You can see ellipse() in action in [this
-  page](https://component.github.com/ellipse/).
+  github page](http://component.github.com/ellipse/).
 
 ## Installation
 
