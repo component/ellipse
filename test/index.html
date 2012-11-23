@@ -31,6 +31,11 @@
         color: white;
         background-color: rgba(0, 0, 0, 0.5);
         position: absolute;
+        -webkit-transition: all 500ms ease-in;
+        -moz-transition: all 500ms ease-in;
+        -o-transition: all 500ms ease-in;
+        -ms-transition: all 500ms ease-in;
+        transition: all 500ms ease-in;
       }
 
       .controls {
@@ -139,14 +144,21 @@
 
           for (var i = 0; i < points.length; i++) {
             var sat = $('<div class="satellite">')
-              .css('left', points[i].x)
-              .css('top', points[i].y)
+              .css('left', width / 2)
+              .css('top', height / 2)
+              .css('opacity', 0)
               .css('border-radius', r)
               .css('line-height', (r * 2) + 'px')
               .width(r * 2)
               .height(r * 2)
               .text(i)
               .appendTo(el);
+
+            (function(el, point, t){
+              setTimeout(function(){
+                el.css('left', point.x).css('top', point.y).css('opacity', 1);
+              }, t);
+            })(sat, points[i], i * 6);
           }
         };
 
