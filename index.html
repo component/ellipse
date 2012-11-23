@@ -1,1 +1,184 @@
-My Page
+
+<!DOCTYPE 5>
+<html>
+  <head>
+    <title>Ellipse component</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      body {
+        padding: 50px;
+        font-family: sans-serif;
+        color: #555;
+      }
+
+      #ellipse {
+        width: 600px;
+        height: 300px;
+        background-color: rgba(200, 255, 200, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .satellite {
+        width: 28;
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
+        border-radius: 14px;
+        font-size: 9px;
+        font-weight: normal;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+      }
+
+      .controls {
+        position: absolute;
+        right: 20px;
+        top: 100px;
+        text-align: right;
+      }
+
+      .controls h3 {
+        margin: 0 0 20px;
+        font-size: 14px;
+        text-align: left;
+      }
+
+      .controls p {
+        margin: 0;
+      }
+
+      .controls p.radios {
+        margin: 10px 0 0;
+      }
+
+      .controls p.radios input {
+        width: auto;
+      }
+
+      .controls p.radios span {
+        text-align: left;
+        width: 50px;
+      }
+
+      .controls label span {
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+        margin-right: 10px;
+        font-size: 12px;
+      }
+
+      .controls label input {
+        width: 60px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h2>Ellipse</h2>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="build.js"></script>
+    <div id="ellipse">
+    </div>
+
+    <div class="controls">
+      <form action="#">
+        <h3>params</h3>
+        <p>
+          <label><span>width</span><input name="width" value="600" /></label>
+        </p>
+        <p>
+          <label><span>height</span><input name="height" value="300" /></label>
+        </p>
+        <p>
+          <label><span>points</span><input name="points" value="28" /></label>
+        </p>
+        <hr />
+        <h3>options param</h3>
+        <p>
+          <label><span>initial angle</span><input name="ini" value="90" /></label>
+        </p>
+        <p>
+          <label><span>end angle</span><input name="end" value="360" /></label>
+        </p>
+        <p>
+          <label><span>times</span><input name="times" value="1000" /></label>
+        </p>
+        <p>
+          <label><span>radius</span><input name="radius" value="14" /></label>
+        </p>
+        <p class="radios">
+        <label>
+          <input type="radio" name="arrangment", value="normal" checked="checked" />
+          <span>normal</span>
+        </label>
+        <label>
+          <input type="radio" name="arrangment", value="symmetric" />
+          <span>symmetric</span>
+        </label>
+        <label>
+          <input type="radio" name="arrangment", value="inside" />
+          <span>inside</span>
+        </label>
+        </p>
+        <hr />
+        <button>set</button>
+      </form>
+    </div>
+
+    <script>
+      $(document).ready(function(){
+        var ellipse = require('ellipse');
+        var el = $('#ellipse');
+
+        function build(width, height, c, opts, r) {
+          var points = ellipse(width, height, c, opts);
+
+          for (var i = 0; i < points.length; i++) {
+            var sat = $('<div class="satellite">')
+              .css('left', points[i].x)
+              .css('top', points[i].y)
+              .css('border-radius', r)
+              .css('line-height', (r * 2) + 'px')
+              .width(r * 2)
+              .height(r * 2)
+              .text(i)
+              .appendTo(el);
+          }
+        };
+
+        build(600, 300, 28, { ini: 90, end: 360, w: 28, h: 28, round: 'round' });
+
+        $('.controls form').submit(function(e){
+          e.preventDefault();
+          var c = $(this).find('input[name=points]').val();
+          var ini = $(this).find('input[name=ini]').val();
+          var end = $(this).find('input[name=end]').val();
+          var t = $(this).find('input[name=times]').val();
+
+          var arrangment = $(this).find('input[name=arrangment]:checked').val();
+
+          var width = $(this).find('input[name=width]').val();
+          var height = $(this).find('input[name=height]').val();
+          el.width(width).height(height);
+
+          var r = $(this).find('input[name=radius]').val();
+
+          el.empty();
+
+          build(width, height, c, {
+            ini: ini,
+            end: end,
+            times: t,
+            arrangment: arrangment,
+            w: r * 2,
+            h: r * 2,
+            round: 'round'
+          }, r);
+        })
+      });
+    </script>
+  </body>
+</html> 
