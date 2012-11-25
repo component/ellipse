@@ -79,9 +79,34 @@
         width: 60px;
       }
 
+      #ribbon {
+        position: absolute;
+        top: 2.5em;
+        right: -3.75em;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        background-color: #b3d107;
+        padding: 1px 0;
+        overflow: hidden;
+        -moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+      }
+
+      #ribbon a {
+        color: #fff;
+        border: 1px solid #d5e965;
+        display: block;
+        margin: 0.05em 0;
+        padding: 0.5em 3.5em;
+        text-align: center;
+        text-decoration: none;
+      }
+
     </style>
   </head>
   <body>
+    <div id="ribbon"><a href="http://github.com/component/ellipse">Fork me on GitHub</a></div>
     <h2>Ellipse</h2>
     <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="build.js"></script>
