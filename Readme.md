@@ -20,7 +20,7 @@ $ component install component/ellipse
   - `ini` initial angle in sexagesimal system (default: 0)
   - `end` end angle in sexagesimal system (default: 360)
   - `times`: times that the computing process will be executed (default: 100)
-  - `arrangment`: "normal" | "inside" | "symmetric" (default: "normal")
+  - `arrangement`: "normal" | "inside" | "symmetric" (default: "normal")
   - `w`: point width (defaut: 0)
   - `h`: point height (defaut: 0)
   - `round`: rounding math function "ceil" | "floor" | "round" | false
