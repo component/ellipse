@@ -33,7 +33,7 @@ var points = ellipse(400, 220, 19); // return the array of points
 
 ## Credits
 
-  - mathematical computation by Carly Stambaugh @stambeezi
+  - mathematical computation by [Carly Stambaugh](https://github.com/stambizzle)  @stambeezi
 
 ## License
 
