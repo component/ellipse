@@ -1,15 +1,22 @@
-
 {
   "name": "ellipse-component",
   "version": "0.1.1",
   "description": "Generates an array of the coordinate points into the given area along ellipse",
   "author": "Damian Suarez <rdsuarez@gmail.com>",
   "twitter": "@retrofox",
-  "keywords": ["ellipse", "math", "component"],
+  "keywords": [
+    "ellipse",
+    "math",
+    "component"
+  ],
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
     "should": "*"
   },
-  "main": "index"
+  "main": "index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/component/ellipse.git"
+  }
 }
